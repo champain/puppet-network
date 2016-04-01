@@ -149,10 +149,12 @@ define network::interface (
   $enable_dhcp     = false,
 
   $ipaddress       = '',
+  $ipv6address     = '',
   $netmask         = undef,
   $network         = undef,
   $broadcast       = undef,
   $gateway         = undef,
+  $ipv6gateway     = undef,
   $hwaddr          = undef,
   $mtu             = undef,
 
@@ -232,6 +234,7 @@ define network::interface (
   $userctl         = 'no',
   $type            = 'Ethernet',
   $ethtool_opts    = undef,
+  $ipv6addr        = '',
   $ipv6init        = undef,
   $dhcp_hostname   = undef,
   $srcaddr         = undef,
@@ -371,6 +374,10 @@ define network::interface (
   $manage_ipaddr = $ipaddr ? {
     ''      => $ipaddress,
     default => $ipaddr,
+  }
+  $manage_ipv6addr = $ipv6addr ? {
+    ''      => $ipv6address,
+    default => $ipv6addr,
   }
   $manage_onboot = $onboot ? {
     ''     => $enable ? {
