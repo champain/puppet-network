@@ -8,6 +8,7 @@ describe 'network::interface' do
   let(:params) {
     { 'enable'       =>  true,
       'ipaddress'    =>  '10.42.42.42',
+      'ipv6address'  =>  'fe80::5e97:4ac7:1b70:5305',
     }
   }
 
@@ -17,6 +18,9 @@ describe 'network::interface' do
     end
     it 'should populate the ifcfg file with correct IP address' do
       should contain_file('/etc/sysconfig/network-scripts/ifcfg-eth0').with_content(/IPADDR=\"10.42.42.42\"/)
+    end
+    it 'should populate the ifcfg file with correct IPv6 addres' do
+        should contain_file('/etc/sysconfig/network-scripts/ifcfg-eth0').with_content(/IPV6ADDR=\"fe80::5e97:4ac7:1b70:5305\"/)
     end
     it 'should populate the ifcfg file with onboot=yes' do
       should contain_file('/etc/sysconfig/network-scripts/ifcfg-eth0').with_content(/ONBOOT=\"yes\"/)
